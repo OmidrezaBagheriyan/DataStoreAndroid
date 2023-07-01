@@ -24,25 +24,81 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/sun" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/swUIMode"
+        <TextView
+            android:id="@+id/tvThemeDefault"
+            android:layout_width="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/text_default_mode"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottieUIMode" />
+
+        <TextView
+            android:id="@+id/tvThemeLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:text="@string/text_light_mode"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lottieUIMode" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/swLangMode"
+        <TextView
+            android:id="@+id/tvThemeNight"
             android:layout_width="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/text_night_mode"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/text_light_mode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottieUIMode" />
+
+        <SeekBar
+            android:id="@+id/sbUIMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:max="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swUIMode" />
+            app:layout_constraintTop_toBottomOf="@+id/tvThemeLight" />
+
+        <TextView
+            android:id="@+id/tvLangDefault"
+            android:layout_width="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/text_default_mode"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbUIMode" />
+
+        <TextView
+            android:id="@+id/tvLangLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_persian_mode"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbUIMode" />
+
+        <TextView
+            android:id="@+id/tvLangNight"
+            android:layout_width="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/text_english_mode"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sbUIMode" />
+
+        <SeekBar
+            android:id="@+id/sbLangMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:max="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLangLight" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
