@@ -12,14 +12,27 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <TextView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieUIMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/sun" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swUIMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/text_light_mode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottieUIMode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
