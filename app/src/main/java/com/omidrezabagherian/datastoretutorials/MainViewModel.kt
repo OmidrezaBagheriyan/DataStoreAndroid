@@ -12,9 +12,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val getTheme = dataStore.getTheme().asLiveData(Dispatchers.IO)
 
+    val getLang = dataStore.getLang().asLiveData(Dispatchers.IO)
+
     fun setTheme(darkMode: String) {
         viewModelScope.launch(Dispatchers.IO) {
             dataStore.setTheme(darkMode)
+        }
+    }
+
+    fun setLang(langMode: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStore.setLang(langMode)
         }
     }
 }
