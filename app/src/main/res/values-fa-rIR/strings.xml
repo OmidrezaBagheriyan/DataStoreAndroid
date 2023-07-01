@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">آموزش ها دیتا استور</string>
+    <string name="text_light_mode">حالت صبح</string>
+    <string name="text_night_mode">حالت شب</string>
+    <string name="text_english_mode">انگلیسی</string>
+    <string name="text_persian_mode">فارسی</string>
+</resources>
