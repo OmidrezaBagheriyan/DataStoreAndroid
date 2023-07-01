@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">DataStoreTutorials</string>
-    <string name="text_light_mode">Light mode </string>
-    <string name="text_night_mode">Night mode </string>
+    <string name="text_default_mode">Default</string>
+    <string name="text_light_mode">Light</string>
+    <string name="text_night_mode">Night</string>
     <string name="text_english_mode">English</string>
     <string name="text_persian_mode">Persian</string>
 </resources>
