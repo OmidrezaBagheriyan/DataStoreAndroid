@@ -19,11 +19,18 @@ class SettingDataStore(context: Context) {
 
     companion object {
         val darkModeKey = stringPreferencesKey("DARKMODE_KEY")
+        val langModeKey = stringPreferencesKey("LANGMODE_KEY")
     }
 
     suspend fun setTheme(darkMode: String) {
         dataStore.edit { preferences ->
             preferences[darkModeKey] = darkMode
+        }
+    }
+
+    suspend fun setLang(langMode: String) {
+        dataStore.edit { preferences ->
+            preferences[langModeKey] = langMode
         }
     }
 
@@ -36,7 +43,20 @@ class SettingDataStore(context: Context) {
                     throw exception
                 }
             }.map { preferences ->
-                preferences[darkModeKey] ?: Theme.NIGHT.name
+                preferences[darkModeKey] ?: Theme.DEFAULT.name
+            }
+    }
+
+    fun getLang(): Flow<String> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[langModeKey] ?: Lang.DEFAULT.name
             }
     }
 }
