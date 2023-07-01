@@ -3,9 +3,9 @@ package com.omidrezabagherian.datastoretutorials
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -14,20 +14,20 @@ import java.io.IOException
 
 class SettingDataStore(context: Context) {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "setting_key")
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "SETTING_KEY")
     private val dataStore = context.dataStore
 
     companion object {
-        val darkModeKey = booleanPreferencesKey("DARK_MODE_KEY")
+        val darkModeKey = stringPreferencesKey("DARKMODE_KEY")
     }
 
-    suspend fun setTheme(isDarkMode: Boolean) {
+    suspend fun setTheme(darkMode: String) {
         dataStore.edit { preferences ->
-            preferences[darkModeKey] = isDarkMode
+            preferences[darkModeKey] = darkMode
         }
     }
 
-    fun getTheme(): Flow<Boolean> {
+    fun getTheme(): Flow<String> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -36,7 +36,7 @@ class SettingDataStore(context: Context) {
                     throw exception
                 }
             }.map { preferences ->
-                preferences[darkModeKey] ?: false
+                preferences[darkModeKey] ?: Theme.NIGHT.name
             }
     }
 }
