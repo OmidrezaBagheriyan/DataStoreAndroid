@@ -24,36 +24,5 @@ class MainActivity : AppCompatActivity() {
 
         settingDataStore = SettingDataStore(this)
 
-        checkingThemeMode()
-
-        settingThemeMode()
-    }
-
-    private fun settingThemeMode() {
-        binding.swUIMode.setOnCheckedChangeListener { _, isChecked ->
-            lifecycleScope.launch {
-                if (isChecked) {
-                    viewModel.setTheme(true)
-                } else {
-                    viewModel.setTheme(false)
-                }
-            }
-        }
-    }
-
-    private fun checkingThemeMode() {
-        viewModel.getTheme.observe(this@MainActivity) { isDarkMode ->
-            if (isDarkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                binding.swUIMode.isChecked = true
-                binding.swUIMode.text = getString(R.string.text_night_mode)
-                binding.lottieUIMode.setAnimation(R.raw.moon)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                binding.swUIMode.isChecked = false
-                binding.swUIMode.text = getString(R.string.text_light_mode)
-                binding.lottieUIMode.setAnimation(R.raw.sun)
-            }
-        }
     }
 }
