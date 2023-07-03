@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.omidrezabagherian.datastoretutorials.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,23 +27,104 @@ class MainActivity : AppCompatActivity() {
 
         settingDataStore = SettingDataStore(this)
 
-        checkThemeMode()
+        Thread {
+            runOnUiThread {
+                configSeekBarLang()
 
-        configSeekBarTheme()
+                configSeekBarTheme()
+
+                checkThemeMode()
+
+                checkLangMode()
+            }
+        }.start()
+
+    }
+
+    private fun setLanguage(value: String) {
+        val locale = Locale(value)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+    }
+
+    private fun checkLangDefault() {
+        when (Locale.getDefault().language) {
+            "en" -> {
+                setLanguage("en")
+            }
+
+            "fa" -> {
+                setLanguage("fa")
+            }
+        }
+    }
+
+    private fun checkLangMode() {
+        viewModel.getLang.observe(this@MainActivity) { langMode ->
+            when (langMode) {
+                Lang.DEFAULT.name -> {
+                    Log.i("ANDROID", Lang.DEFAULT.name)
+                    binding.sbLangMode.progress = 0
+                    checkLangDefault()
+                }
+
+                Lang.PERSIAN.name -> {
+                    Log.i("ANDROID", Lang.PERSIAN.name)
+                    binding.sbLangMode.progress = 1
+                    setLanguage("fa")
+                }
+
+                Lang.ENGLISH.name -> {
+                    Log.i("ANDROID", Lang.ENGLISH.name)
+                    binding.sbLangMode.progress = 2
+                    setLanguage("en")
+                }
+            }
+        }
+    }
+
+
+    private fun configSeekBarLang() {
+        binding.apply {
+            sbLangMode.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    when (progress) {
+                        0 -> {
+                            viewModel.setLang(Lang.DEFAULT.name)
+                        }
+
+                        1 -> {
+                            viewModel.setLang(Lang.PERSIAN.name)
+                        }
+
+                        2 -> {
+                            viewModel.setLang(Lang.ENGLISH.name)
+                        }
+                    }
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+            })
+        }
     }
 
     private fun checkThemeDefault() {
-        Thread {
-            runOnUiThread {
-                if (resources.configuration.uiMode and
-                    Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
-                ) {
-                    binding.lottieUIMode.setAnimation(R.raw.moon)
-                } else {
-                    binding.lottieUIMode.setAnimation(R.raw.sun)
-                }
-            }
-        }.start()
+        if (resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+        ) {
+            binding.lottieUIMode.setAnimation(R.raw.moon)
+        } else {
+            binding.lottieUIMode.setAnimation(R.raw.sun)
+        }
     }
 
     private fun checkThemeMode() {
@@ -67,7 +149,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        binding.sbLangMode.progress = 1
     }
 
     private fun configSeekBarTheme() {
